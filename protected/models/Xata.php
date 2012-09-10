@@ -52,7 +52,7 @@ class Xata extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type_id, city_id, owner, visit, longitude, latitude', 'required'),
+			array('type_id, city_id, owner, visit, longitude, latitude, description', 'required'),
 			array('type_id, city_id, owner, cost, rental_m, rental_d, rental_h, visit', 'numerical', 'integerOnly'=>true),
       array('longitude, latitude', 'numerical'),			
 			array('address', 'length', 'max'=>200),

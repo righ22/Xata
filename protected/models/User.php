@@ -1,5 +1,5 @@
 <?php
-
+require('trust.php');
 /**
  * This is the model class for table "tbl_user".
  *
@@ -101,7 +101,9 @@ class User extends CActiveRecord
 	}
 	// ---------- USER ADDS FUNCTIONS -------------------
 	// Make a friend (set trust level for the user)
-	public function setUserTrust($_uid2,$_lvl=Trust::$_avglvl){
+  
+  
+	public function setUserTrust($_uid2,$_lvl=Trust::getAvg){
 	    $ut=new UserTrust();
 	    $ut->attributes=array('uid1'=>$this->id,'uid2'=>$_uid2,'trust'=>$_lvl);
 	    return $ut->save();
@@ -111,12 +113,12 @@ class User extends CActiveRecord
 	    return (int)UserTrust::model()->find("uid1=".$this->id." AND uid2=$_uid2 AND trust=$_lvl",'trust');
 	}
 	// Check trust (friends or not)
-	public function isTrustTo($_uid2,$_lvl=Trust::$_avglvl){
+	public function isTrustTo($_uid2,$_lvl=Trust::getAvg){
 	    $_uid2=(int) $_uid2;
 	    $_lvl=(int) $_lvl;
 	    return count(UserTrust::model()->findAll("uid1=".$this->id." AND uid2=$_uid2 AND trust>=$_lvl"));
 	}
-	public function isTrustedBy($_uid1,$_lvl=Trust::$_avglvl){
+	public function isTrustedBy($_uid1,$_lvl=Trust::getAvg){
 	    $_uid1=(int) $_uid1;
 	    $_lvl=(int) $_lvl;
 	    return count(UserTrust::model()->findAll("uid2=".$this->id." AND uid1=$_uid1 AND trust>=$_lvl"));

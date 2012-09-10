@@ -14,6 +14,7 @@
 		                    CHtml::listData(XataType::model()->findAll('parent is NULL'),'id','caption'),
                         array(
                           'style'=>'width:150px',
+                          'value'=>1,  
                           'empty'=>Yii::t('xata','Chose one...'),  
 													'ajax' => array(
 														'type'=>'POST', //request type

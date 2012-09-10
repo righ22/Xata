@@ -17,17 +17,21 @@ $this_xata_owner=Yii::app()->user->id==$model->owner;
 
 ?>
 
-<div class='row'>
- <div class='span2'>
-    <div class='thumbnail' style='margin-left: 20px;'>
- 		<img src='<?php echo Yii::app()->request->baseUrl; ?>/images/living_place.png' class="img-rounded" />
+<div class='row-fluid'>
+ <div class='internal_xata1 span12'> <div class='row-fluid'>
+ <div class='span4'>
+    <div id="xatava" class='thumbnail' style='margin-left: 20px;'>
+      <img src='<?php echo Yii::app()->request->baseUrl; ?>/images/living_place.png' class="img-rounded" />
  		</div>
- 		<button class='btn'>
- 		  <i class='icon-edit'></i>
- 		</button>
+    <script>
+      btn=$("<a class='btn'><?echo Yii::t('xata','Change');?><i class='icon-edit'></i></a>");
+      btn.offset($('#xatava').offset());
+      $('#xatava').append(btn);
+    </script>  
+ 		
  </div>
- <div class='span5'>
- 	 <div class='label label-info'  style='margin:1px;padding:5px;'> 
+ <div class='span8'>
+ 	 <div class='label label-xata1'  style='margin:1px;padding:5px;'> 
    <?
      $xt=new XataType;
      $xts=$xt->findByPk($model->type_id)->getParentList();
@@ -87,22 +91,42 @@ $this_xata_owner=Yii::app()->user->id==$model->owner;
    <?}?>
          
   </div>
+  </div></div>   
 </div>
-<div class='row'>
- <div class='span3'>
-     <span class='label'><?echo $model->city->country->caption;?></span>
-     <span class='label'><?echo $model->city->caption;?></span>
- </div>
- <div class='span5'>
- 		<? echo $model->description; ?>
- </div>
-</div>
-<div class='row'>
- <div class='span7'>
+<div class='row-fluid minmrg'>
+  <div class="internal_xata1 span12" >
+    <div class="row-fluid">
+      <div class='span4'>
+        <span class='label'><?echo $model->city->country->caption;?></span>
+        <i class="icon-arrow-right"></i>
+        <span class='label'><?echo $model->city->caption;?></span>
+      </div>
+      <div class='internal_xata2 span8'>
+        <? echo $model->description; ?>
+      </div>
+    </div>  
      <?echo $model->address;?>
+      <a class='btn' style="float:right"><?echo Yii::t('xata','Show on map');?><i class="icon-map-marker"></i></a>
  </div>
- <div class='span1'>
-     <a class='btn'><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/the_nest.png' /></a>
- </div> 
+</div>
+<div class='row-fluid minmrg'>
+  <div id="xataimgs" class='inverted_xata span12'>
+    <?
+     if($images){
+    ?>
+    <ul class='thumbnails'>
+    </ul>          
+   <?}else{?>
+    <p style="text-align:center">
+      <strong>Note!</strong> There is no images.
+    </p>  
+   <?}?>
+    
+  </div>
+    <script>
+      btn=$("<a class='btn'><?echo Yii::t('xata','Add');?><i class='icon-plus'></i></a>");
+      btn.offset($('#xataimgs').offset());
+      $('#xataimgs').append(btn);
+    </script>    
 </div>
      
