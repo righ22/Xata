@@ -111,5 +111,15 @@ class XataType extends CActiveRecord
       if($subitems != array()) 
         $returnarray = array_merge($returnarray, array('items' => $subitems));
       return $returnarray;
+    }
+    // ------------------
+    public function getParentList() {
+      $arr[]=$this->caption;
+      $el=$this->findByPk($this->parent);
+      while($el){
+        $arr=array_merge(array($el->caption),$arr);
+        $el=$this->findByPk($el->parent);
+      }  
+      return $arr;
     }	
 }

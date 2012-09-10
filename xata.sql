@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 3.4.10.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 04, 2012 at 04:54 PM
--- Server version: 5.5.25
--- PHP Version: 5.3.13
+-- Хост: localhost
+-- Время создания: Сен 10 2012 г., 06:20
+-- Версия сервера: 5.1.50
+-- Версия PHP: 5.3.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `xata`
+-- База данных: `xata`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ha_logins`
+-- Структура таблицы `ha_logins`
 --
 
 CREATE TABLE IF NOT EXISTS `ha_logins` (
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `ha_logins` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `ha_logins`
+-- Дамп данных таблицы `ha_logins`
 --
 
 INSERT INTO `ha_logins` (`id`, `userId`, `loginProvider`, `loginProviderIdentifier`) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `ha_logins` (`id`, `userId`, `loginProvider`, `loginProviderIdentifi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_city`
+-- Структура таблицы `tbl_city`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_city` (
@@ -60,22 +60,20 @@ CREATE TABLE IF NOT EXISTS `tbl_city` (
   `caption` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `country_id` (`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `tbl_city`
+-- Дамп данных таблицы `tbl_city`
 --
 
 INSERT INTO `tbl_city` (`id`, `country_id`, `caption`) VALUES
-(1, 1, 'Beijing'),
-(2, 2, 'Запорожье'),
-(3, 2, 'Днепропетровск'),
-(4, 1, 'Hong-Kong');
+(6, 4, 'Запорожье'),
+(7, 5, 'Екатеринбург');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_country`
+-- Структура таблицы `tbl_country`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_country` (
@@ -83,20 +81,20 @@ CREATE TABLE IF NOT EXISTS `tbl_country` (
   `caption` varchar(200) NOT NULL,
   `short` varchar(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_country`
+-- Дамп данных таблицы `tbl_country`
 --
 
 INSERT INTO `tbl_country` (`id`, `caption`, `short`) VALUES
-(1, 'China', 'CH'),
-(2, 'Ukraine', 'UA');
+(4, 'Украина', 'UA'),
+(5, 'Россия', 'RU');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user`
+-- Структура таблицы `tbl_user`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_user` (
@@ -108,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
--- Dumping data for table `tbl_user`
+-- Дамп данных таблицы `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id`, `username`, `password`, `email`) VALUES
@@ -140,23 +138,22 @@ INSERT INTO `tbl_user` (`id`, `username`, `password`, `email`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user_trust`
+-- Структура таблицы `tbl_user_trust`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_user_trust` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid1` int(11) NOT NULL,
   `uid2` int(11) NOT NULL,
   `turst` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`uid1`,`uid2`),
   KEY `uid1` (`uid1`),
   KEY `uid2` (`uid2`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user_xata`
+-- Структура таблицы `tbl_user_xata`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_user_xata` (
@@ -168,19 +165,22 @@ CREATE TABLE IF NOT EXISTS `tbl_user_xata` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `xid` (`xid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_user_xata`
+-- Дамп данных таблицы `tbl_user_xata`
 --
 
 INSERT INTO `tbl_user_xata` (`id`, `uid`, `xid`, `rights`, `public`) VALUES
-(1, 22, 4, 16777215, 16777215);
+(2, 22, 5, 16777215, 10),
+(3, 22, 6, 16777215, 10),
+(4, 22, 7, 16777215, 10),
+(5, 22, 8, 16777215, 10);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_xata`
+-- Структура таблицы `tbl_xata`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_xata` (
@@ -196,81 +196,99 @@ CREATE TABLE IF NOT EXISTS `tbl_xata` (
   `visit` int(11) NOT NULL,
   `longitude` double NOT NULL,
   `latitude` double NOT NULL,
+  `description` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type_id` (`type_id`),
   KEY `tbl_xata_ibfk_2` (`city_id`),
   KEY `tbl_xata_ibfk_1` (`owner`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `tbl_xata`
+-- Дамп данных таблицы `tbl_xata`
 --
 
-INSERT INTO `tbl_xata` (`id`, `type_id`, `city_id`, `address`, `owner`, `cost`, `rental_m`, `rental_d`, `rental_h`, `visit`, `longitude`, `latitude`) VALUES
-(1, 1, 2, 'Магистральная 84б кв 9', 1, NULL, NULL, NULL, NULL, 5, 0, 0),
-(3, 1, 2, 'Магистральная 84б кв 9', 1, NULL, NULL, NULL, NULL, 5, 0, 0),
-(4, 1, 2, 'Магистральная 84б кв 9', 22, 60000, 200, 50, 20, 5, 0, 0);
+INSERT INTO `tbl_xata` (`id`, `type_id`, `city_id`, `address`, `owner`, `cost`, `rental_m`, `rental_d`, `rental_h`, `visit`, `longitude`, `latitude`, `description`) VALUES
+(5, 1, 6, 'ул. Пушкина, 19, Запорожье, Запорожская область, Украина', 22, NULL, NULL, 100, NULL, 5, 35.166596, 47.833514, ''),
+(6, 1, 7, 'Авиационная ул., 9, Екатеринбург, Свердловская область, Россия, 620144', 22, 270000, NULL, NULL, NULL, 1, 60.596004, 56.8013625, ''),
+(7, 2, 6, 'ул. Пушкина, 19, Запорожье, Запорожская область, Украина', 22, 70000, 300, 50, 10, 5, 35.166596, 47.833514, ''),
+(8, 6, 6, 'Магистральная ул., 84Б, Запорожье, Запорожская область, Украина', 22, NULL, NULL, NULL, NULL, 5, 35.233307, 47.840993, ' Ну какое-то там описание. Просто чтобы было что-нибудт для отладки. Ну типо бла-бла-бла и такое прочее. А чего еще надо??? Ну все, кажется достаточно текста для проверки.');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_xata_type`
+-- Структура таблицы `tbl_xata_type`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_xata_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent` int(11) DEFAULT NULL,
   `caption` varchar(200) NOT NULL,
   `description` text NOT NULL,
   `img` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`id`),
+  KEY `parent` (`parent`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `tbl_xata_type`
+-- Дамп данных таблицы `tbl_xata_type`
 --
 
-INSERT INTO `tbl_xata_type` (`id`, `caption`, `description`, `img`) VALUES
-(1, 'жилое', 'Дом, квартира, в крайнем случае комната, но что-то что обладает необходимыми условиями для проживания (электричество, вода, спальня ...)', 'images/living_place.png'),
-(2, 'специальное', 'специальное помещение, обладающее специфическими свойствами, и необходимым оборудованием (мастерские, звукозаписывающие, прочее)', 'images/special_place.png'),
-(3, 'складское', 'либо просто крыша и ключ, либо специальное помещение с особыми температурными характеристиками и влажностью', 'images/stock_place.png');
+INSERT INTO `tbl_xata_type` (`id`, `parent`, `caption`, `description`, `img`) VALUES
+(1, NULL, 'Жилой', 'Дом, квартира, в крайнем случае комната, но что-то что обладает необходимыми условиями для проживания (электричество, вода, спальня ...)', 'images/living_place.png'),
+(2, NULL, 'Коммерческий', 'офисы, склады, торговые площади, мастерские, рестораны, клубы, кафе, магазины, студии и т.д. и т.п.', 'images/special_place.png'),
+(3, NULL, 'Участок', 'просто участки земли, пахотные площади, что угодно ...', 'images/stock_place.png'),
+(4, 10, '1к Квартира', 'Однокомнатная квартира', 'ааа'),
+(5, 10, '2к Квартира', 'Двухкомнатная кватрира', 'ввв'),
+(6, 10, '3к Квартира', 'Трехкомнатная квартира', 'ввв'),
+(7, 10, 'Многокомнатка', '4 и более жилых комнат. (в т.ч. Объединенные квартиры)', 'ввв'),
+(8, 1, 'Комната', 'Просто комната,..', 'ввв'),
+(9, 1, 'Дом', 'Полноценный, отдельно стоящий жилой дом', 'чсмч'),
+(10, 1, 'Квартира', 'Квартиры бывают разные,.. с одной комнатой, двумя, тремя...', 'ссс'),
+(11, NULL, 'Другое', 'Если сложно отнести дом\\заведение\\строение к какой либо из категорий', '');
 
 --
--- Constraints for dumped tables
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Constraints for table `ha_logins`
+-- Ограничения внешнего ключа таблицы `ha_logins`
 --
 ALTER TABLE `ha_logins`
   ADD CONSTRAINT `ha_logins_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `tbl_user` (`id`);
 
 --
--- Constraints for table `tbl_city`
+-- Ограничения внешнего ключа таблицы `tbl_city`
 --
 ALTER TABLE `tbl_city`
   ADD CONSTRAINT `tbl_city_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `tbl_country` (`id`);
 
 --
--- Constraints for table `tbl_user_trust`
+-- Ограничения внешнего ключа таблицы `tbl_user_trust`
 --
 ALTER TABLE `tbl_user_trust`
   ADD CONSTRAINT `tbl_user_trust_ibfk_1` FOREIGN KEY (`uid1`) REFERENCES `tbl_user` (`id`),
   ADD CONSTRAINT `tbl_user_trust_ibfk_2` FOREIGN KEY (`uid2`) REFERENCES `tbl_user` (`id`);
 
 --
--- Constraints for table `tbl_user_xata`
+-- Ограничения внешнего ключа таблицы `tbl_user_xata`
 --
 ALTER TABLE `tbl_user_xata`
   ADD CONSTRAINT `tbl_user_xata_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `tbl_user` (`id`),
   ADD CONSTRAINT `tbl_user_xata_ibfk_2` FOREIGN KEY (`xid`) REFERENCES `tbl_xata` (`id`);
 
 --
--- Constraints for table `tbl_xata`
+-- Ограничения внешнего ключа таблицы `tbl_xata`
 --
 ALTER TABLE `tbl_xata`
   ADD CONSTRAINT `tbl_xata_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `tbl_xata_type` (`id`),
   ADD CONSTRAINT `tbl_xata_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `tbl_city` (`id`),
   ADD CONSTRAINT `tbl_xata_ibfk_3` FOREIGN KEY (`owner`) REFERENCES `tbl_user` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `tbl_xata_type`
+--
+ALTER TABLE `tbl_xata_type`
+  ADD CONSTRAINT `tbl_xata_type_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `tbl_xata_type` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

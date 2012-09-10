@@ -16,6 +16,7 @@
  * @property integer $visit
  * @property double  $longitude
  * @property double  $latitude
+ * @property string $description
  *
  * The followings are the available model relations:
  * @property TblUserXata[] $tblUserXatas
@@ -57,7 +58,7 @@ class Xata extends CActiveRecord
 			array('address', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type_id, city_id, address, owner, cost, rental_m, rental_d, rental_h, visit, longitude, latitude', 'safe', 'on'=>'search'),
+			array('id, type_id, city_id, address, owner, cost, rental_m, rental_d, rental_h, visit, longitude, latitude, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -101,7 +102,8 @@ class Xata extends CActiveRecord
 			'rental_h' => Yii::t('xata','Rental H'),
 			'visit' => Yii::t('xata','Visit'),
 			'longitude' => Yii::t('xata','Longitude'),
-			'latitude'  => Yii::t('xata','Latitude'),        
+			'latitude'  => Yii::t('xata','Latitude'),  
+			'description' => Yii::t('xata','Description'),      
 		);
 	}
 
@@ -128,9 +130,12 @@ class Xata extends CActiveRecord
 		$criteria->compare('visit',$this->visit);
 		$criteria->compare('longitude',$this->longitude);
 		$criteria->compare('latitude',$this->latitude);    
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+	//----- USER ADDS FUNCTIONS -----------------------------------
+	
 }

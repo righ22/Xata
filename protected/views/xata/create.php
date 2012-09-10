@@ -18,9 +18,7 @@ $this->menu=array(
 <h3>Добавить Хату</h3>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
-<div>
-  <input id="some_Xata_address"/>
-</div> 
+
 <script>
 $('#type_id_lvl0').bind('change',function(){
 	$('#type_id_lvl2').html('');

@@ -65,7 +65,7 @@
 		<?php echo $form->textField($model,'rental_d',array('style'=>'width:170px')); ?>
 		<?php echo $form->textField($model,'rental_h',array('style'=>'width:170px')); ?>
 
-		<?php echo $form->error($model,'rental_m'); ?>
+		<?php echo  $form->error($model,'rental_m'); ?>
 		<?php echo $form->error($model,'rental_d'); ?>		
 		<?php echo $form->error($model,'rental_h'); ?>
 	</div>
@@ -200,6 +200,12 @@ $this->widget('zii.widgets.jui.CJuiSliderInput', array(
 ));
 */
 ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'description'); ?>
+		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50));?>
+		<?php echo $form->error($model,'description'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

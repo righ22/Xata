@@ -4,7 +4,6 @@
  * This is the model class for table "tbl_user_trust".
  *
  * The followings are the available columns in table 'tbl_user_trust':
- * @property integer $id
  * @property integer $uid1
  * @property integer $uid2
  * @property integer $turst
@@ -45,7 +44,7 @@ class UserTrust extends CActiveRecord
 			array('uid1, uid2, turst', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, uid1, uid2, turst', 'safe', 'on'=>'search'),
+			array('uid1, uid2, turst', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,7 +67,6 @@ class UserTrust extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
 			'uid1' => 'Uid1',
 			'uid2' => 'Uid2',
 			'turst' => 'Turst',
@@ -86,7 +84,6 @@ class UserTrust extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
 		$criteria->compare('uid1',$this->uid1);
 		$criteria->compare('uid2',$this->uid2);
 		$criteria->compare('turst',$this->turst);

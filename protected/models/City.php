@@ -57,8 +57,8 @@ class City extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'country' => array(self::BELONGS_TO, 'TblCountry', 'caption'),
-			'tblXatas' => array(self::HAS_MANY, 'TblXata', 'city_id'),
+			'country' => array(self::BELONGS_TO, 'Country', 'country_id'),
+			'Xatas' => array(self::HAS_MANY, 'Xata', 'city_id'),
 		);
 	}
 
